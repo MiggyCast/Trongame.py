@@ -1,22 +1,21 @@
 # Fall2023_final_project
 
-Simple overview of use/purpose.
+A fun twoplayer game of one of my favorite movies with some modifications.
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+This project was a fun dive into recreating a classic Tron-inspired game using Python and Pygame. The main goal was to simulate the iconic light cycle battles by controlling the paths of two bikes, making them speed up, slow down, and weave around to avoid collisions. The game incorporated a futuristic background reminiscent of the Tron movie, setting the scene for the gameplay. While I managed to create engaging mechanics like bike movement and visual elements, implementing collision detection to accurately trigger the end screen proved to be quite the challenge. Despite some difficulties, the project taught me a lot about game development, from handling player input to rendering graphics, and provided a hands-on understanding of Pygame's capabilities. Overall, it was a blast tinkering with code to recreate a nostalgic gaming experience!
 
 ## Getting Started
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* VsCode, Python, PyGame, Github
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* VSCode find on Github
+
 
 ### Executing program
 
@@ -37,8 +36,8 @@ command to run if program contains helper info
 
 Contributors names and contact info
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+Miguel Castrillon 
+@mig.uel.us.col@gmail.com
 
 ## Version History
 
@@ -50,14 +49,10 @@ ex. [@DomPizzie](https://twitter.com/dompizzie)
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the [MIT] License - see the LICENSE.md file for details
 
 ## Acknowledgments
 
 Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [Coding with Russ](https://www.youtube.com/watch?v=nXOVcOBqFwM)
-* [Coding with Russ](https://www.youtube.com/watch?v=nXOVcOBqFwM)
+*https://storm-coder-dojo.github.io/activities/python/tron.html
+AI
