@@ -1,0 +1,146 @@
+# This code was created by Miguel Castrillom
+# inspiration from StormDojoCoder, using turtle graphics so I made my own using PyGame engine
+# Made with the assistance of AI
+
+'''
+Red and Blue seems standard, change the tron characters to be orange and pink
+Include a start Screen
+S key triggers start screen
+Make the bikes go faster or slower
+Even make them able to stop (fake opponets out)
+Instead of the game finishing when you hit the edge of the screen, make the bikes re-appear at the opposite edge of the screen.
+Add futuristic background similar to that of the Tron movie
+Set up collision detection for end screen (having lots of difficulties)
+'''
+import sys
+import pygame
+
+# Initializing variables
+bike_1_pos = [300, 300]  # Initial position for Bike 1
+bike_2_pos = [500, 500]  # Initial position for Bike 2
+bike_1_movement = [1, 0]  # Initial movement for Bike 1 (right)
+bike_2_movement = [-1, 0]  # Initial movement for Bike 2 (left)
+bike_1_trail = [bike_1_pos]  # Trail for Bike 1
+bike_2_trail = [bike_2_pos]  # Trail for Bike 2
+
+# Seting up pygame
+pygame.init()
+clock = pygame.time.Clock()
+surface = pygame.display.set_mode((800, 600))
+
+# to load background image
+background = pygame.image.load('TronBack.jpg')
+background = pygame.transform.scale(background, (800, 600))  # Resize image to match screen size
+
+# Define initial bike speeds
+bike_1_speed = 2  # Initial speed for Bike 1
+bike_2_speed = 2  # Initial speed for Bike 2
+speed_increment = 0.2  # Speed increment/decrement value
+
+def game_surface():
+    surface.blit(background, (0, 0))  # Draw background image
+    pygame.draw.rect(surface, (225, 225, 225), (10, 10, 780, 580), 5)
+
+def game_events():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+
+def move_bikes():
+    global bike_1_movement, bike_2_movement, bike_1_pos, bike_2_pos, bike_1_speed, bike_2_speed  # Declare variables as global
+    keys = pygame.key.get_pressed()
+
+    # Bike 1 movement
+    if keys[pygame.K_a]:
+        bike_1_movement = [-1, 0]  # Move left for Bike 1
+    elif keys[pygame.K_d]:
+        bike_1_movement = [1, 0]  # Move right for Bike 1
+    elif keys[pygame.K_w]:
+        bike_1_movement = [0, -1]  # Move up for Bike 1
+    elif keys[pygame.K_s]:
+        bike_1_movement = [0, 1]  # Move down for Bike 1
+
+    # Bike 2 movement
+    if keys[pygame.K_j]:
+        bike_2_movement = [-1, 0]  # Move left for Bike 2
+    elif keys[pygame.K_l]:
+        bike_2_movement = [1, 0]  # Move right for Bike 2
+    elif keys[pygame.K_i]:
+        bike_2_movement = [0, -1]  # Move up for Bike 2
+    elif keys[pygame.K_k]:
+        bike_2_movement = [0, 1]  # Move down for Bike 2
+
+    # Bike 1 speed adjustment
+    if keys[pygame.K_e]:  # Speed up Bike 1
+        bike_1_speed += speed_increment
+    elif keys[pygame.K_q]:  # Slow down Bike 1
+        if bike_1_speed > speed_increment:
+            bike_1_speed -= speed_increment
+
+    # Bike 2 speed adjustment
+    if keys[pygame.K_o]:  # Speed up Bike 2
+        bike_2_speed += speed_increment
+    elif keys[pygame.K_u]:  # Slow down Bike 2
+        if bike_2_speed > speed_increment:
+            bike_2_speed -= speed_increment
+
+    bike_1_pos[0] += bike_1_movement[0] * bike_1_speed
+    bike_1_pos[1] += bike_1_movement[1] * bike_1_speed
+    bike_2_pos[0] += bike_2_movement[0] * bike_2_speed
+    bike_2_pos[1] += bike_2_movement[1] * bike_2_speed
+
+    # Goal 4: Re-appear bikes at opposite edge upon reaching the edge
+    # Bike 1 logic
+    if bike_1_pos[0] > 800:
+        bike_1_pos[0] = 0
+    elif bike_1_pos[0] < 0:
+        bike_1_pos[0] = 800
+    if bike_1_pos[1] > 600:
+        bike_1_pos[1] = 0
+    elif bike_1_pos[1] < 0:
+        bike_1_pos[1] = 600
+
+    # Bike 2 logic
+    if bike_2_pos[0] > 800:
+        bike_2_pos[0] = 0
+    elif bike_2_pos[0] < 0:
+        bike_2_pos[0] = 800
+    if bike_2_pos[1] > 600:
+        bike_2_pos[1] = 0
+    elif bike_2_pos[1] < 0:
+        bike_2_pos[1] = 600
+
+    bike_1_trail.append(bike_1_pos.copy())
+    bike_2_trail.append(bike_2_pos.copy())
+
+def draw_bike_trails():
+    # Draw Bike 1 trail
+    for pos in bike_1_trail:
+        pygame.draw.circle(surface, (255, 165, 0), pos, 2)  # Orange color for Bike 1
+
+    # Draw Bike 2 trail
+    for pos in bike_2_trail:
+        pygame.draw.circle(surface, (255, 192, 203), pos, 2)  # Pink color for Bike 2
+
+def intro_screen():
+    font = pygame.font.Font(None, 72)
+    text = font.render("Tron", True, (255, 255, 255))
+    text_rect = text.get_rect(center=(800 // 2, 600 // 2))
+    surface.blit(text, text_rect)
+    pygame.display.update()
+    pygame.time.delay(3000)  # Display intro screen for 3 seconds
+
+show_intro = True  # Flag to control the intro sequence
+
+while True:
+    game_events()
+    
+    if show_intro:
+        intro_screen()
+        show_intro = False  # Set the flag to False after the intro
+
+    game_surface()
+    move_bikes()
+    draw_bike_trails()
+    pygame.display.update()
+    clock.tick(60)
